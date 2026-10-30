@@ -1,0 +1,70 @@
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search events...">
+            <button id="searchButton">Search</button>
+        </div>
+
+<script>
+// Search functionality
+document.getElementById('searchButton').addEventListener('click', function() {
+    const searchQuery = document.getElementById('searchInput').value.trim();
+    if (searchQuery) {
+        searchEvents(searchQuery);
+    }
+});
+
+document.getElementById('searchInput').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        const searchQuery = this.value.trim();
+        if (searchQuery) {
+            searchEvents(searchQuery);
+        }
+    }
+});
+
+function searchEvents(query) {
+    fetch(`templates/php/search_events.php?query=${encodeURIComponent(query)}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                displayEvents(data.data);
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error searching events');
+        });
+}
+
+function displayEvents(events) {
+    const eventGrid = document.querySelector('.event-grid');
+    eventGrid.innerHTML = ''; // Clear existing events
+
+    if (events.length === 0) {
+        eventGrid.innerHTML = '<p class="no-events">No events found</p>';
+        return;
+    }
+
+    events.forEach(event => {
+        const eventCard = document.createElement('div');
+        eventCard.className = 'event-card';
+        eventCard.innerHTML = `
+            <img src="${event.image_url}" alt="${event.title}">
+            <div class="event-info">
+                <h3>${event.title}</h3>
+                <p class="event-description">${event.description}</p>
+                <p class="event-category">${event.category}</p>
+                <p class="event-date">${new Date(event.event_date).toLocaleDateString()}</p>
+                <p class="event-venue">${event.venue}</p>
+                <p class="event-price">$${event.ticket_price}</p>
+                <p class="event-tickets">Tickets Available: ${event.available_tickets}</p>
+                <div class="event-actions">
+                    <button class="event-button" onclick="viewEvent(${event.event_id})">View</button>
+                </div>
+            </div>
+        `;
+        eventGrid.appendChild(eventCard);
+    });
+}
+</script> 

@@ -1,0 +1,18 @@
+# Operating system and editor artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local configuration and generated output
+*.log
+*.bak
+*.tmp
+.env
+.env.*
+!.env.example
+/templates/receipts/*
+!/templates/receipts/.gitkeep
+/templates/uploads/*
+!/templates/uploads/default-event.jpg
+!/templates/uploads/.gitkeep
