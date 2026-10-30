@@ -59,7 +59,6 @@ The original application's setup and all backend workflows have **not** been end
 
 **Project:** EVibe — Event Management System  
 **Type:** University Semester Project  
-**Term:** Spring 2025  
 **Institution:** FAST National University of Computer and Emerging Sciences, Peshawar Campus  
 **Original project team:** Muhammad Adil (group leader), Muhammad Kaif, Mashaal Ishtiaq
 
